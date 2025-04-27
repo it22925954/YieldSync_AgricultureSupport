@@ -26,6 +26,8 @@ export default function App() {
         <Stack.Screen name="header" component={header} />
         <Stack.Screen name="footer" component={footer} />
         <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
