@@ -28,6 +28,8 @@ export default function App() {
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Add Distributor" component={DistributorForm} />
+        <Stack.Screen name="Update Distributor" component={UpdateDistributor} />
+      
       </Stack.Navigator>
     </NavigationContainer>
   );
