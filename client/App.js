@@ -27,7 +27,7 @@ export default function App() {
         <Stack.Screen name="footer" component={footer} />
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-
+        <Stack.Screen name="Add Distributor" component={DistributorForm} />
       </Stack.Navigator>
     </NavigationContainer>
   );
