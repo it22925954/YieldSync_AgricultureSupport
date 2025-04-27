@@ -4,7 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 
-const API_URL = "http://192.168.179.92:5000/api/budget";
+const API_URL = "http://192.168.103.92:5000/api/budget";
 
 // Suppress React Native logs warning
 LogBox.ignoreLogs([
