@@ -4,7 +4,7 @@ import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
 
-const API_URL = "http://192.168.179.92:5000/api/expenses"; // Replace with your actual backend URL
+const API_URL = "http://192.168.103.92:5000/api/expenses"; // Replace with your actual backend URL
 
 const AddExpenseScreen = ({ navigation }) => {
   const [description, setDescription] = useState("");
