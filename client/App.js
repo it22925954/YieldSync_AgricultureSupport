@@ -18,8 +18,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" backgroundColor="green" />
-      <Stack.Navigator
-      >
+      <Stack.Navigator initialRouteName="Dashboard">
+        
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Home" component={HomeScreen} />
