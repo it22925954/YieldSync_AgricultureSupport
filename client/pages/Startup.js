@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity } from
 import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
-  const navigation = useNavigation(); //  Correct way to get navigation object
+  const navigation = useNavigation(); //  Correct way to get navigation object.
 
   return (
     <ImageBackground
