@@ -3,7 +3,7 @@ import { Alert, Animated, Easing } from "react-native";
 import styled from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons"; // Using FontAwesome for icons
 
-const API_URL = "http://192.168.179.92:5000/api/auth/register"; // ✅ For Android Emulator
+const API_URL = "http://192.168.8.158:5000/api/auth/register"; // ✅ For Android Emulator
 
 export default function Register({ navigation }) {
   const [name, setName] = useState("");
