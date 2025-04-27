@@ -31,6 +31,7 @@ export default function App() {
         <Stack.Screen name="Update Distributor" component={UpdateDistributor} />
       
       </Stack.Navigator>
+      <StatusBar style="auto"/>
     </NavigationContainer>
   );
 }
