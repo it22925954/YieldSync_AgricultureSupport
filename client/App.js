@@ -8,6 +8,7 @@ import DetailsScreen from "./pages/DetailsScreen";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
+import DistributorForm from "./pages/add_distributor";
 
 const Stack = createStackNavigator();
 
