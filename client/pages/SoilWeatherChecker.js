@@ -82,3 +82,100 @@ export default function SoilWeatherChecker() {
   fetchAreas();
 }, []);
 */
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#FFFFFF',
+      paddingHorizontal: 20,
+    },
+    header: {
+      backgroundColor: '#3A963A',
+      paddingVertical: 20,
+      paddingHorizontal: 15,
+      marginBottom: 20,
+      marginTop: 40,
+    },
+    headerText: {
+      color: '#FFFFFF',
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    description: {
+      textAlign: 'center',
+      color: '#555',
+      fontSize: 14,
+      marginBottom: 20,
+    },
+    logo: {
+      width: 100,
+      height: 100,
+      alignSelf: 'center',
+      marginBottom: 20,
+    },
+    dropdown: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderColor: '#CCC',
+      borderWidth: 1,
+      borderRadius: 8,
+      padding: 12,
+      marginBottom: 20,
+    },
+    dropdownText: {
+      fontSize: 16,
+      color: '#555',
+    },
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalContent: {
+      backgroundColor: '#FFF',
+      padding: 20,
+      marginHorizontal: 20,
+      borderRadius: 10,
+    },
+    modalItem: {
+      paddingVertical: 12,
+      borderBottomWidth: 1,
+      borderBottomColor: '#EEE',
+    },
+    modalText: {
+      fontSize: 16,
+      color: '#555',
+    },
+    modalClose: {
+      marginTop: 10,
+      paddingVertical: 10,
+      backgroundColor: '#3A963A',
+      borderRadius: 5,
+      alignItems: 'center',
+    },
+    closeText: {
+      color: '#FFF',
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
+    infoContainer: {
+      backgroundColor: '#3A963A',
+      padding: 20,
+      borderRadius: 10,
+      marginTop: 20,
+    },
+    infoTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: '#FFF',
+      marginBottom: 5,
+    },
+    infoBox: {
+      backgroundColor: '#FFF',
+      borderRadius: 8,
+      padding: 10,
+      marginBottom: 15,
+    },
+  });
+  
