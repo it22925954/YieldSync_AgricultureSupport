@@ -9,6 +9,8 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import DistributorForm from "./pages/add_distributor";
+import UpdateDistributor from "./pages/update_distributor"; // Correct import for update page
+
 
 const Stack = createStackNavigator();
 
