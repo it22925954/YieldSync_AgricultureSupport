@@ -9,6 +9,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import AddBudgetScreen from './pages/AddBudgetScreen';
 import FinancialDashboard from './pages/FinancialDashboard';
+import AddExpenseScreen from './pages/AddExpenseScreen';  
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="Details" component={DetailsScreen} />
         <Stack.Screen name="FinancialDashboard" component={FinancialDashboard} />
         <Stack.Screen name="AddBudgetScreen" component={AddBudgetScreen} />
+        <Stack.Screen name="AddExpenseScreen" component={AddExpenseScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
