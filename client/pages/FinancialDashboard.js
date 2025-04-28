@@ -64,7 +64,7 @@ export default function FinancialDashboard({ navigation }) {
       legendFontSize: 15,
     },
     {
-      name: '⚙️Entertainment',
+      name: 'Entertainment',
       population: 100,
       color: '#FF7043',
       legendFontColor: '#7F7F7F',
