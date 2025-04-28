@@ -10,7 +10,7 @@ export default function EditPostScreen({ route, navigation }) {
   const [content, setContent] = useState(post.content);
   const [image, setImage] = useState(post.image);
 
-  // ✅ Pick new image
+  //  Pick new image
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -24,7 +24,7 @@ export default function EditPostScreen({ route, navigation }) {
     }
   };
 
-  // ✅ Update post including image
+  //  Update post including image
   const updatePost = () => {
     fetch(`${API_URL}/${post._id}`, {
       method: "PUT",
