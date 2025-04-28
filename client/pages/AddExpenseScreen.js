@@ -49,18 +49,21 @@ const AddExpenseScreen = ({ navigation }) => {
     }
   };
 
-  // Validate Input
-  const validateInputs = () => {
-    if (!description.trim() || !amount.trim() || !category || category === "Select Category") {
-      Alert.alert("Error", "Please fill all fields properly.");
-      return false;
-    }
-    if (isNaN(amount) || parseFloat(amount) <= 0) {
-      Alert.alert("Error", "Please enter a valid amount.");
-      return false;
-    }
-    return true;
-  };
+// Validate Input
+const validateInputs = () => {
+  const safeAmount = typeof amount === 'string' ? amount.trim() : '';
+
+  if (!description.trim() || !safeAmount || !category || category === "Select Category") {
+    Alert.alert("Error", "Please fill all fields properly.");
+    return false;
+  }
+  if (isNaN(safeAmount) || parseFloat(safeAmount) <= 0) {
+    Alert.alert("Error", "Please enter a valid amount.");
+    return false;
+  }
+  return true;
+};
+
 
   // Save or update expense
   const handleSaveExpense = () => {
