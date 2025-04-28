@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const distributorRoutes = require("./routes/distributorRoutes");
+const distributorRoutes = require('./routes/distributorRoutes');
+
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // MongoDB connection
 mongoose

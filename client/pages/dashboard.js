@@ -8,7 +8,7 @@ export default function Dashboard({ navigation }) {
 
   const fetchDistributors = async () => {
     try {
-      const response = await fetch("http://192.168.179.62:5000/api/distributors/all");
+      const response = await fetch("http://192.168.8.158:5000/api/distributors/all");
       if (!response.ok) {
         throw new Error("Failed to fetch distributors");
       }
@@ -29,7 +29,7 @@ export default function Dashboard({ navigation }) {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://192.168.179.62:5000/api/distributors/delete/${id}`, {
+      const response = await fetch(`http://192.168.8.158:5000/api/distributors/delete/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -99,6 +99,12 @@ export default function Dashboard({ navigation }) {
               <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(item._id)}>
                 <Text style={styles.buttonText}>Delete</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                 style={styles.viewProfileButton}
+                 onPress={() => navigation.navigate("DistributorProfile", { distributorId: item._id })}
+>
+                 <Text style={styles.buttonText}>View Profile</Text>
+              </TouchableOpacity>
             </View>
           </View>
         )}
@@ -121,5 +127,6 @@ const styles = StyleSheet.create({
   row: { flexDirection: "row", alignItems: "center", marginBottom: 8 },
   updateButton: { backgroundColor: "#f5ad42", padding: 10, borderRadius: 8, flex: 1, alignItems: "center", marginRight: 5 },
   deleteButton: { backgroundColor: "#d32f2f", padding: 10, borderRadius: 8, flex: 1, alignItems: "center", marginLeft: 5 },
+  viewProfileButton: { backgroundColor: "#2e7d32", padding: 10, borderRadius: 8, flex: 1, alignItems: "center", marginLeft: 5 },
   buttonText: { color: "white", fontSize: 16, fontWeight: "bold" },
 });

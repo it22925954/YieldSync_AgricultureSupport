@@ -18,7 +18,7 @@ export default function UpdateDistributor({ route, navigation }) {
 
   const fetchDistributorDetails = async () => {
     try {
-      const response = await fetch(`http://192.168.179.62:5000/api/distributors/${distributorId}`);
+      const response = await fetch(`http://192.168.8.158:5000/api/distributors/${distributorId}`);
       const data = await response.json();
       if (response.ok) {
         setInputs({
@@ -54,7 +54,7 @@ export default function UpdateDistributor({ route, navigation }) {
     return;
   }
     try {
-      const response = await fetch(`http://192.168.179.62:5000/api/distributors/update/${distributorId}`, {
+      const response = await fetch(`http://192.168.8.158:5000/api/distributors/update/${distributorId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(inputs),

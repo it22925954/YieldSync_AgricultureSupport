@@ -36,7 +36,7 @@ export default function DistributorForm({ navigation }) {
   }
 
     try {
-      const response = await fetch("http://192.168.179.62:5000/api/distributors/add", {
+      const response = await fetch("http://192.168.8.158:5000/api/distributors/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(inputs),
