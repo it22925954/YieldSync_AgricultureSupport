@@ -71,7 +71,7 @@ export default function FinancialDashboard({ navigation }) {
       <Text style={styles.subtitle}>Your Current Financial Snapshot</Text>
 
       <View style={styles.summaryContainer}>
-        <Text style={styles.summary}>💰 Total Budget: Rs.{totalBudget.toFixed(2)}</Text>
+        <Text style={styles.summary}>💰 Total Income: Rs.{totalBudget.toFixed(2)}</Text>
         <Text style={styles.summary}>💸 Total Expenses: Rs.{totalExpenses.toFixed(2)}</Text>
         <Text style={styles.summary}>🔥 Current Balance: Rs.{currentBalance.toFixed(2)}</Text>
       </View>
