@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
-export default function LocationMap({ route }) {
-  const { location } = route.params;
+export default function LocationMap() {
   const [userLocation, setUserLocation] = useState(null);
-  const [distributorCoords, setDistributorCoords] = useState(null);
 
   useEffect(() => {
     const getUserLocation = async () => {
@@ -21,20 +19,13 @@ export default function LocationMap({ route }) {
     };
 
     getUserLocation();
+  }, []);
 
-    if (location) {
-      const coords = location.split(',').map(coord => parseFloat(coord));
-      setDistributorCoords({
-        latitude: isNaN(coords[0]) ? 0 : coords[0],
-        longitude: isNaN(coords[1]) ? 0 : coords[1],
-      });
-    }
-  }, [location]);
-
-  if (!userLocation || !distributorCoords) {
+  if (!userLocation) {
     return (
-      <View style={styles.container}>
-        <Text>Loading map...</Text>
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#4CAF50" />
+        <Text style={styles.loadingText}>Loading map...</Text>
       </View>
     );
   }
@@ -45,28 +36,25 @@ export default function LocationMap({ route }) {
       initialRegion={{
         latitude: userLocation.coords.latitude,
         longitude: userLocation.coords.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
       }}
     >
+      {/* Only show user's current location marker */}
       <Marker
         coordinate={{
           latitude: userLocation.coords.latitude,
           longitude: userLocation.coords.longitude,
         }}
         title="Your Location"
-        description="This is your current location."
-      />
-      <Marker
-        coordinate={distributorCoords}
-        title="Distributor Location"
-        description="This is the distributor's location."
+        pinColor="#4CAF50"
       />
     </MapView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F1F8E9' },
+  loadingText: { marginTop: 10, fontSize: 16, color: '#666' },
   map: { flex: 1 },
-});
+});  
