@@ -10,7 +10,7 @@ export default function NewPostScreen({ route, navigation }) {
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
 
-  // ✅ Pick image from the device
+  //  Pick image from the device
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -24,7 +24,7 @@ export default function NewPostScreen({ route, navigation }) {
     }
   };
 
-  // ✅ Create a new post with image
+  //  Create a new post with image
   const addPost = () => {
     if (!title.trim() || !content.trim()) {
       alert("Please enter a title and content.");
@@ -52,7 +52,7 @@ export default function NewPostScreen({ route, navigation }) {
       <TextInput placeholder="Title" style={styles.input} value={title} onChangeText={setTitle} />
       <TextInput placeholder="Content" style={styles.input} value={content} onChangeText={setContent} multiline />
 
-      {/* ✅ Image Picker & Preview */}
+      {/*  Image Picker & Preview */}
       <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
         <Text style={styles.imageButtonText}>📸 Pick an Image</Text>
       </TouchableOpacity>
