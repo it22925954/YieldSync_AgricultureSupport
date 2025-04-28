@@ -22,7 +22,7 @@ exports.sendMessage = async (req, res) => {
   }
 };
 
-//  Save postId inside each message!
+//  Save postId inside each message 
 
 //  Get all messages for a specific Post
 exports.getMessagesByPostId = async (req, res) => {
