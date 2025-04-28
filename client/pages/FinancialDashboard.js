@@ -1,76 +1,70 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 
-const EXPENSES_API_URL = "http://192.168.103.92:5000/api/expenses"; // your expenses endpoint
-const BUDGET_API_URL = "http://192.168.103.92:5000/api/budget"; // your budget endpoint (assumed)
+const EXPENSES_API_URL = "http://192.168.103.92:5000/api/expenses";
+const BUDGET_API_URL    = "http://192.168.103.92:5000/api/budget";
 
 export default function FinancialDashboard({ navigation }) {
+  const [expenses, setExpenses]         = useState([]);
   const [totalExpenses, setTotalExpenses] = useState(0);
-  const [totalBudget, setTotalBudget] = useState(0);
+  const [totalBudget, setTotalBudget]     = useState(0);
   const currentBalance = totalBudget - totalExpenses;
 
   useEffect(() => {
     navigation.setOptions({
       title: 'Financial Management',
-      headerStyle: {
-        backgroundColor: '#2e7d32',
-      },
+      headerStyle: { backgroundColor: '#2e7d32' },
       headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
+      headerTitleStyle: { fontWeight: 'bold' },
     });
-    fetchExpenses();
-    fetchBudget();
   }, [navigation]);
 
-  const fetchExpenses = async () => {
+  const fetchExpenses = useCallback(async () => {
     try {
-      const response = await axios.get(EXPENSES_API_URL);
-      const expenses = response.data;
-      const total = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
-      setTotalExpenses(total);
-    } catch (error) {
-      console.error('Error fetching expenses:', error);
+      const { data } = await axios.get(EXPENSES_API_URL);
+      setExpenses(data);
+      const sum = data.reduce((acc, exp) => acc + parseFloat(exp.amount), 0);
+      setTotalExpenses(sum);
+    } catch (err) {
+      console.error('Error fetching expenses:', err);
     }
-  };
+  }, []);
 
-  const fetchBudget = async () => {
+  const fetchBudget = useCallback(async () => {
     try {
-      const response = await axios.get(BUDGET_API_URL);
-      const budgetData = response.data;
-      const total = budgetData.reduce((sum, budget) => sum + parseFloat(budget.amount), 0);
-      setTotalBudget(total);
-    } catch (error) {
-      console.error('Error fetching budget:', error);
+      const { data } = await axios.get(BUDGET_API_URL);
+      const sum = data.reduce((acc, b) => acc + parseFloat(b.amount), 0);
+      setTotalBudget(sum);
+    } catch (err) {
+      console.error('Error fetching budget:', err);
     }
-  };
+  }, []);
 
-  const data = [
-    {
-      name: 'Food',
-      population: 300,
-      color: '#1E7D32',
+  useFocusEffect(
+    useCallback(() => {
+      fetchExpenses();
+      fetchBudget();
+    }, [fetchExpenses, fetchBudget])
+  );
+
+  // Build chart data for Food, Utilities, Entertainment
+  const categories = ['Food', 'Utilities', 'Entertainment'];
+  const colors = ['#1E7D32', '#FFEB3B', '#FF7043'];
+  const chartData = categories.map((cat, idx) => {
+    const total = expenses
+      .filter(e => e.category === cat)
+      .reduce((sum, e) => sum + parseFloat(e.amount), 0);
+    return {
+      name: cat,
+      population: total,
+      color: colors[idx],
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
-    },
-    {
-      name: 'Utilities',
-      population: 200,
-      color: '#FFEB3B',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-    {
-      name: 'Entertainment',
-      population: 100,
-      color: '#FF7043',
-      legendFontColor: '#7F7F7F',
-      legendFontSize: 15,
-    },
-  ];
+    };
+  }).filter(item => item.population > 0);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -84,27 +78,26 @@ export default function FinancialDashboard({ navigation }) {
 
       <View style={styles.summaryContainer}>
         <View style={styles.chartContainer}>
-          <Text style={styles.chartTitle}>📊 Current Expense Overview</Text>
-          <PieChart
-            data={data}
-            width={350}
-            height={220}
-            chartConfig={{
-              backgroundColor: '#FFFFFF',
-              backgroundGradientFrom: '#F1F1F1',
-              backgroundGradientTo: '#F1F1F1',
-              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-              propsForDots: {
-                r: '6',
-                strokeWidth: '2',
-                stroke: '#fff',
-              },
-            }}
-            accessor="population"
-            backgroundColor="transparent"
-            paddingLeft="20"
-          />
+          <Text style={styles.chartTitle}>📊 Expense Breakdown</Text>
+          {chartData.length > 0 ? (
+            <PieChart
+              data={chartData}
+              width={Dimensions.get('window').width - 40}
+              height={220}
+              chartConfig={{
+                backgroundColor: '#FFFFFF',
+                backgroundGradientFrom: '#F1F1F1',
+                backgroundGradientTo: '#F1F1F1',
+                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              }}
+              accessor="population"
+              backgroundColor="transparent"
+              paddingLeft="20"
+            />
+          ) : (
+            <Text style={styles.noDataText}>No expense data in these categories.</Text>
+          )}
         </View>
       </View>
 
@@ -112,11 +105,9 @@ export default function FinancialDashboard({ navigation }) {
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddBudgetScreen')}>
           <Text style={styles.buttonText}>Budget Planning</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddExpenseScreen')}>
           <Text style={styles.buttonText}>Add New Expense</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('FinancialReports')}>
           <Text style={styles.buttonText}>Financial Reports</Text>
         </TouchableOpacity>
@@ -158,7 +149,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   chartContainer: {
-    marginBottom: 2,
     alignItems: 'center',
   },
   chartTitle: {
@@ -167,11 +157,16 @@ const styles = StyleSheet.create({
     color: '#2E7D32',
     marginBottom: 10,
   },
+  noDataText: {
+    textAlign: 'center',
+    color: '#888',
+    marginTop: 20,
+  },
   buttonContainer: {
     marginTop: 5,
   },
   button: {
-    backgroundColor: '#2E7D32',
+    backgroundColor: '#2e7d32',
     paddingVertical: 12,
     paddingHorizontal: 18,
     borderRadius: 10,
