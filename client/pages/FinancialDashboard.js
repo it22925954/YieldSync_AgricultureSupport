@@ -1,9 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
+import axios from 'axios';
+
+const EXPENSES_API_URL = "http://192.168.103.92:5000/api/expenses"; // your expenses endpoint
+const BUDGET_API_URL = "http://192.168.103.92:5000/api/budget"; // your budget endpoint (assumed)
 
 export default function FinancialDashboard({ navigation }) {
-  // Set green header on mount
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [totalBudget, setTotalBudget] = useState(0);
+  const currentBalance = totalBudget - totalExpenses;
+
   useEffect(() => {
     navigation.setOptions({
       title: 'Financial Management',
@@ -15,26 +22,49 @@ export default function FinancialDashboard({ navigation }) {
         fontWeight: 'bold',
       },
     });
+    fetchExpenses();
+    fetchBudget();
   }, [navigation]);
 
-  // Sample data for pie chart (expense categories)
+  const fetchExpenses = async () => {
+    try {
+      const response = await axios.get(EXPENSES_API_URL);
+      const expenses = response.data;
+      const total = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
+      setTotalExpenses(total);
+    } catch (error) {
+      console.error('Error fetching expenses:', error);
+    }
+  };
+
+  const fetchBudget = async () => {
+    try {
+      const response = await axios.get(BUDGET_API_URL);
+      const budgetData = response.data;
+      const total = budgetData.reduce((sum, budget) => sum + parseFloat(budget.amount), 0);
+      setTotalBudget(total);
+    } catch (error) {
+      console.error('Error fetching budget:', error);
+    }
+  };
+
   const data = [
     {
-      name: 'Seeds',
+      name: 'Food',
       population: 300,
       color: '#1E7D32',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
-      name: 'Labor',
+      name: 'Utilities',
       population: 200,
       color: '#FFEB3B',
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     },
     {
-      name: 'Equipment',
+      name: '⚙️Entertainment',
       population: 100,
       color: '#FF7043',
       legendFontColor: '#7F7F7F',
@@ -47,9 +77,9 @@ export default function FinancialDashboard({ navigation }) {
       <Text style={styles.subtitle}>Your Current Financial Snapshot</Text>
 
       <View style={styles.summaryContainer}>
-        <Text style={styles.summary}>💰 Total Income: Rs.3,000</Text>
-        <Text style={styles.summary}>💸 Total Expenses: Rs.1,500</Text>
-        <Text style={styles.summary}>🔥 Current Balance: Rs.1,500</Text>
+        <Text style={styles.summary}>💰 Total Budget: Rs.{totalBudget.toFixed(2)}</Text>
+        <Text style={styles.summary}>💸 Total Expenses: Rs.{totalExpenses.toFixed(2)}</Text>
+        <Text style={styles.summary}>🔥 Current Balance: Rs.{currentBalance.toFixed(2)}</Text>
       </View>
 
       <View style={styles.summaryContainer}>
