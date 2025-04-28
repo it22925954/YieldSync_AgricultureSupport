@@ -45,7 +45,7 @@ export default function EditPostScreen({ route, navigation }) {
       <TextInput placeholder="Title" style={styles.input} value={title} onChangeText={setTitle} />
       <TextInput placeholder="Content" style={styles.input} value={content} onChangeText={setContent} multiline />
 
-      {/* ✅ Image Picker & Preview */}
+      {/* Image Picker & Preview */}
       <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
         <Text style={styles.imageButtonText}>📸 Change Image</Text>
       </TouchableOpacity>
