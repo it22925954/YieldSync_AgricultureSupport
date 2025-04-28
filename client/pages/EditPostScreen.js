@@ -68,3 +68,9 @@ const styles = StyleSheet.create({
   imageButtonText: { color: "#fff", fontWeight: "bold" },
   imagePreview: { width: "100%", height: 200, borderRadius: 5, marginTop: 10 },
 });
+
+
+
+
+
+//edit//
