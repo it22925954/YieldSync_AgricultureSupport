@@ -33,7 +33,7 @@ exports.createPost = async (req, res) => {
   }
 };
 
-//  Update an existing post (title, content, image)
+//  Update an existing post (including title, content, image)
 exports.updatePost = async (req, res) => {
   try {
     const { title, content, image } = req.body;
@@ -49,7 +49,7 @@ exports.updatePost = async (req, res) => {
   }
 };
 
-//  Delete a post
+//  Delete a uploaded post
 exports.deletePost = async (req, res) => {
   try {
     await Post.findByIdAndDelete(req.params.id);
