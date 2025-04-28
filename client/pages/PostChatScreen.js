@@ -66,7 +66,7 @@ export default function PostChatScreen({ route }) {
   );
 }
 
-// ✅ Styled Components
+//  Styled Components
 const Container = styled.View` flex: 1; background-color: #e8f5e9; `;
 const Header = styled.Text` font-size: 20px; font-weight: bold; color: #1b5e20; padding: 15px; text-align: center; background-color: #1b5e20; color: white; `;
 const MessageBubble = styled.View`
