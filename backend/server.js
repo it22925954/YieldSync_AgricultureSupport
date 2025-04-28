@@ -2,17 +2,20 @@ require('dotenv').config(); // Load .env variables
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const authRoutes = require("./routes/authRouts");
+const soilWeatherRoutes = require("./routes/soilWeatherRoutes");  // Import soil/weather routes
 
 const app = express();
-app.use(express.json());
-app.use(cors());
+app.use(express.json()); // Middleware to parse JSON
+app.use(cors()); // Middleware for handling cross-origin requests
 
 // Check if MONGO_URI is loaded correctly
 console.log("MongoDB URI:", process.env.MONGO_URI); // Debugging
 
-app.use("/api/auth", authRoutes);
+// API Routes
+app.use("/api/soil-weather", soilWeatherRoutes); // Use routes for soil and weather data
+app.use("/api/auth", require("./routes/authRouts"));  // Authentication routes
 
+// Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
 });
