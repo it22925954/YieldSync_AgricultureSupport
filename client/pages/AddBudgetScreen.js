@@ -44,13 +44,7 @@ export default function AddBudgetScreen({ navigation }) {
   }, [fetchBudgets]);
 
   const validateFields = () => {
-    if (
-      !budgetName.trim() ||
-      !amount.trim() ||
-      isNaN(amount) ||
-      parseFloat(amount) <= 0 ||
-      !category
-    ) {
+    if (!budgetName.trim() && (!amount.trim() || isNaN(amount) || parseFloat(amount) <= 0) && !category) {
       Alert.alert("Validation Error", "Please fill all fields properly.");
       return false;
     }
@@ -68,6 +62,7 @@ export default function AddBudgetScreen({ navigation }) {
     }
     return true;
   };
+  
 
   const handleSaveBudget = async () => {
     if (!validateFields()) return;
