@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   chartContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    
+    padding:2
   },
   chartTitle: {
     fontSize: 20,
