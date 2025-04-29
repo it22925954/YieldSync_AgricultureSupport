@@ -82,8 +82,8 @@ export default function FinancialDashboard({ navigation }) {
           {chartData.length > 0 ? (
             <PieChart
               data={chartData}
-              width={Dimensions.get('window').width - 40}
-              height={220}
+              width={Dimensions.get('window').width - 50}
+              height={250}
               chartConfig={{
                 backgroundColor: '#FFFFFF',
                 backgroundGradientFrom: '#F1F1F1',
@@ -93,7 +93,7 @@ export default function FinancialDashboard({ navigation }) {
               }}
               accessor="population"
               backgroundColor="transparent"
-              paddingLeft="20"
+              paddingLeft="18"
             />
           ) : (
             <Text style={styles.noDataText}>No expense data in these categories.</Text>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 20,
+    padding: 18,
     backgroundColor: '#F4F8F5',
   },
   subtitle: {
@@ -126,10 +126,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#2E7D32',
     fontWeight: 'bold',
-    marginBottom: 15,
+    marginBottom: 18,
   },
   summaryContainer: {
-    marginBottom: 20,
+    marginBottom: 25,
     backgroundColor: '#FFFFFF',
     padding: 20,
     borderRadius: 10,
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   summary: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
     color: '#000',
     marginBottom: 5,
@@ -149,13 +149,15 @@ const styles = StyleSheet.create({
   chartContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: '18'
     
   },
   chartTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#2E7D32',
-    marginBottom: 10,
+    marginTop:-10,
+    marginBottom: 25
   },
   noDataText: {
     textAlign: 'center',
@@ -182,6 +184,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+    
   },
   
 });
