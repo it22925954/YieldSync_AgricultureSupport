@@ -200,7 +200,7 @@ const validateInputs = () => {
 };
 
 const styles = {
-  container: { flex: 1, padding: 20, backgroundColor: "#e8f5e9" },
+  container: { flex: 1, padding: 18, backgroundColor: "#e8f5e9" },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 10, textAlign: "center" },
   input: { borderWidth: 1, borderColor: "#ccc", padding: 7, marginVertical: 5, borderRadius: 5, backgroundColor: "#fff" },
   pickerContainer: {  borderWidth: 1,borderColor: '#ccc',borderRadius: 10,marginBottom: 5,overflow: 'hidden', backgroundColor: '#fff',marginTop:5},
@@ -218,7 +218,7 @@ const styles = {
   editButton: { backgroundColor: "#f5ad42", padding: 8, borderRadius: 5, marginRight: 5, color: "#000" },
   deleteButton: { backgroundColor: "#d32f2f", padding: 8, borderRadius: 5 },
   totalExpenseText: { fontSize: 16, fontWeight: "bold", textAlign: "center" },
-  expensesRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }
+  expensesRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }
 };
 
 export default AddExpenseScreen;
