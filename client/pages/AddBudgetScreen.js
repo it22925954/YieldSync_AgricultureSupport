@@ -72,7 +72,7 @@ export default function AddBudgetScreen({ navigation }) {
     try {
       if (editingBudget) {
         await axios.put(`${API_URL}/${editingBudget._id}`, newBudget);
-        Alert.alert("Updated Successfully", "Update successfully");
+        Alert.alert("🟢 Updated Successfully", "Update successfully");
       } else {
         await axios.post(API_URL, newBudget);
         Alert.alert("✅ Saved Successfully", "Save Successfully");
@@ -102,7 +102,7 @@ export default function AddBudgetScreen({ navigation }) {
           try {
             await axios.delete(`${API_URL}/${id}`);
             fetchBudgets();
-            Alert.alert("Success", "🔴 Deleted Successfully"); // ✅ Show success message here
+            Alert.alert("🔴 Deleted Successfully", "Delete Successfully"); // ✅ Show success message here
           } catch (error) {
             console.error("Error deleting income:", error);
             Alert.alert("Error", "Failed to delete income.");

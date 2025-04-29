@@ -75,7 +75,7 @@ const validateInputs = () => {
     if (editingId) {
       axios.put(`${API_URL}/update/${editingId}`, expenseData)
         .then(response => {
-          Alert.alert("Updated Successfully", response.data.message);
+          Alert.alert("🟢 Updated Successfully", response.data.message);
           const updatedExpenses = expenses.map(exp => exp._id === editingId ? response.data.expense : exp);
           setExpenses(updatedExpenses);
           calculateTotalExpenses(updatedExpenses);
