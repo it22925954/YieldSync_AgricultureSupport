@@ -14,8 +14,10 @@ import HomeScreen from "./pages/HomeScreen";
 import DetailsScreen from "./pages/DetailsScreen";
 import Login from "./pages/login";
 import Register from "./pages/register";
-// import CommunityChat from "./pages/CommunityChat";
+import CommunityChat from "./pages/CommunityChat";
 import PostChatScreen from "./pages/PostChatScreen";
+// import ChatListScreen from "./pages/PostChatListScreen";
+import PostChatListScreen from "./pages/PostChatListScreen";
 
 const Stack = createStackNavigator();
 
@@ -43,8 +45,9 @@ export default function App() {
         <Stack.Screen name="header" component={header} />
         <Stack.Screen name="footer" component={footer} />
         <Stack.Screen name="Details" component={DetailsScreen} />
-        {/* <Stack.Screen name="CommunityChat" component={CommunityChat} /> */}
+        <Stack.Screen name="CommunityChat" component={CommunityChat} />
         <Stack.Screen name="PostChat" component={PostChatScreen} />
+        <Stack.Screen name="ChatList" component={PostChatListScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
