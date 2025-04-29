@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, ActivityIndicator, TouchableOpacity, Modal, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native"; // <-- IMPORT THIS
 
 const Header = () => {
   const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(true);
   const [menuVisible, setMenuVisible] = useState(false);
+
+  const navigation = useNavigation(); // <-- USE THIS
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,18 +42,29 @@ const Header = () => {
   }, []);
 
   const topMenuItems = [
-    { id: "1", title: "Home", icon: "home" },
-    { id: "2", title: "Post", icon: "post" }, 
-    { id: "3", title: "Expenses", icon: "cash-multiple" },
-    { id: "4", title: "Distributors", icon: "truck" },
-    { id: "5", title: "Calculator", icon: "calculator" }
+    { id: "1", title: "Home", icon: "home", screen: "HomeScreen" },
+    { id: "2", title: "Post", icon: "post", screen: "Forum" }, 
+    { id: "3", title: "Expenses", icon: "cash-multiple", screen: "ExpensesScreen" },
+    { id: "4", title: "Distributors", icon: "truck", screen: "DistributorsScreen" },
+    { id: "5", title: "Calculator", icon: "calculator", screen: "CalculatorScreen" }
   ];
 
   const bottomMenuItems = [
-    { id: "6", title: "Profile", icon: "account" }, 
-    { id: "7", title: "Settings", icon: "cog" },
-    { id: "8", title: "Logout", icon: "logout" }
+    { id: "6", title: "Profile", icon: "account", screen: "ProfileScreen" }, 
+    { id: "7", title: "Settings", icon: "cog", screen: "SettingsScreen" },
+    { id: "8", title: "Logout", icon: "logout", screen: "Login" } // Handle logout separately if needed
   ];
+
+  const handleMenuPress = (screenName) => {
+    setMenuVisible(false);
+    if (screenName === "Logout") {
+      // Handle logout here
+      console.log("Logging out...");
+      // For example: clear token, navigate to login screen, etc.
+    } else {
+      navigation.navigate(screenName);
+    }
+  };
 
   return (
     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 10, backgroundColor: "#e8f5e9" }}>
@@ -82,7 +96,10 @@ const Header = () => {
               data={topMenuItems}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => setMenuVisible(false)} style={{ flexDirection: "row", alignItems: "center", paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: "#ccc" }}>
+                <TouchableOpacity 
+                  onPress={() => handleMenuPress(item.screen)} 
+                  style={{ flexDirection: "row", alignItems: "center", paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: "#ccc" }}
+                >
                   <MaterialCommunityIcons name={item.icon} size={24} color="#2E7D32" style={{ marginRight: 10 }} />
                   <Text style={{ fontSize: 18 }}>{item.title}</Text>
                 </TouchableOpacity>
@@ -92,7 +109,11 @@ const Header = () => {
             {/* Push Profile, Settings, Logout to Bottom */}
             <View style={{ flex: 1, justifyContent: "flex-end" }}>
               {bottomMenuItems.map((item) => (
-                <TouchableOpacity key={item.id} onPress={() => setMenuVisible(false)} style={{ flexDirection: "row", alignItems: "center", paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: "#ccc" }}>
+                <TouchableOpacity 
+                  key={item.id} 
+                  onPress={() => handleMenuPress(item.screen)} 
+                  style={{ flexDirection: "row", alignItems: "center", paddingVertical: 15, borderBottomWidth: 1, borderBottomColor: "#ccc" }}
+                >
                   <MaterialCommunityIcons name={item.icon} size={24} color="#2E7D32" style={{ marginRight: 10 }} />
                   <Text style={{ fontSize: 18 }}>{item.title}</Text>
                 </TouchableOpacity>
@@ -103,6 +124,7 @@ const Header = () => {
               <Text style={{ fontSize: 18, color: "red" }}>Close</Text>
             </TouchableOpacity>
           </View>
+
           <TouchableOpacity style={{ flex: 1, backgroundColor: "rgba(0,0,0,0.5)" }} onPress={() => setMenuVisible(false)} />
         </View>
       </Modal>

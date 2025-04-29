@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert, Animated, Easing } from
 import styled from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons"; // Using FontAwesome for icons
 
-const API_URL = "http://192.168.103.92:5000/api/auth/login"; // ✅ For Android Emulator
+const API_URL = "http://192.168.132.36:5000/api/auth/login"; // For Android Emulator
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -80,7 +80,7 @@ export default function LoginScreen({ navigation }) {
   );
 }
 
-// ✅ Styled Components
+//  Styled Components
 const StyledContainer = styled.View`
   flex: 1;
   justify-content: center;
