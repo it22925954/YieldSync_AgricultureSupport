@@ -145,7 +145,7 @@ const validateInputs = () => {
       <View style={styles.pickerContainer}>
         <Picker selectedValue={category} onValueChange={setCategory} style={styles.picker}>
           <Picker.Item label="Select Category" value="Select Category" />
-          <Picker.Item label="🌱Food" value="Fertilizer" />
+          <Picker.Item label="🌱Fertilizer" value="Fertilizer" />
           <Picker.Item label="🛠️Labor" value="Labor" />
           <Picker.Item label="⚙️Equipment" value="Equipment" />
         </Picker>
