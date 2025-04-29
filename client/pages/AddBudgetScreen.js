@@ -107,7 +107,7 @@ export default function AddBudgetScreen({ navigation }) {
           try {
             await axios.delete(`${API_URL}/${id}`);
             fetchBudgets();
-            Alert.alert("🔴 Deleted Successfully", "Delete Successfully"); // ✅ Show success message here
+            Alert.alert("🔴 Deleted Successfully", "Delete Successfully"); 
           } catch (error) {
             console.error("Error deleting income:", error);
             Alert.alert("Error", "Failed to delete income.");
