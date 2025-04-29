@@ -186,6 +186,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   categories:{
-    marginLeft: 1,
+    marginLeft: 2,
   }
 });
