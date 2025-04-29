@@ -22,7 +22,7 @@ export default function AddBudgetScreen({ navigation }) {
 
   useEffect(() => {
     navigation.setOptions({
-      title: 'Add Budget',
+      title: 'Add Income',
       headerStyle: { backgroundColor: 'green' }, // Green header
       headerTintColor: '#fff', // White text
     });
