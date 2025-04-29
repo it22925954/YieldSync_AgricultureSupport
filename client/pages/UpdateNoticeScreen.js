@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import styled from "styled-components/native";
 import axios from "axios";
 
-const API_URL = "http://192.168.82.36:5000/notices";
+const API_URL = "http://192.168.103.92:5000/notices";
 
 const UpdateNoticeScreen = ({ route, navigation }) => {
   const { notice } = route.params;

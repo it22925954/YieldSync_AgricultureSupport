@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
-const API_URL = "http://192.168.132.36:5000/api/posts"; // Your API
+const API_URL = "http://192.168.103.92:5000/api/posts"; // Your API
 
 export default function ForumScreen({ navigation }) {
   const [posts, setPosts] = useState([]);

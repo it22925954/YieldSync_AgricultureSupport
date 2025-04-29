@@ -8,7 +8,7 @@ export default function PostChatScreen({ route }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
-  const API_URL = `http://192.168.132.108:5000/api/messages/${postId}`; // Dynamic by post
+  const API_URL = `http://192.168.103.92:5000/api/messages/${postId}`; // Dynamic by post
 
   useEffect(() => {
     fetch(API_URL)

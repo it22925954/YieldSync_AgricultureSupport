@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from "react
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/Feather";
 
-const API_URL = "http://192.168.132.108:5000/api/posts"; // Your Posts API
+const API_URL = "http://192.168.103.92:5000/api/posts"; // Your Posts API
 
 export default function PostChatListScreen({ navigation }) {
   const [posts, setPosts] = useState([]);

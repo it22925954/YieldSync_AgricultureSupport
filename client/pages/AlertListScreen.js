@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import axios from "axios";
 
-const API_URL = "http://192.168.82.36:5000/notices";
+const API_URL = "http://192.103.92:5000/notices";
 
 const AlertListScreen = () => {
   const [notices, setNotices] = useState([]);
