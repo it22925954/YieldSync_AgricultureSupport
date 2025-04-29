@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   input: { borderWidth: 1, borderColor: "#ccc", padding: 10, marginVertical: 5, borderRadius: 5, backgroundColor: "#fff" },
   pickerContainer: { borderWidth: 1,borderColor: '#ddd',borderRadius: 10,marginBottom: 5,overflow: 'hidden', backgroundColor: '#fff',marginTop:5},
   picker: { height: 54, width: "100%" },
-  dateButton: { backgroundColor: "#ddd", padding: 12, borderRadius: 5, alignItems: "center", marginVertical: 5 },
+  dateButton: { backgroundColor: "#ddd", padding: 8, borderRadius: 5, alignItems: "center", marginVertical: 5 },
   dateButtonText: { fontSize: 12 },
   saveButton: { backgroundColor: "#2e7d32", paddingVertical: 12, borderRadius: 5, alignItems: "center",marginTop: 10 ,marginBottom:10 },
   saveButtonText: { color: "#fff", fontSize: 14, fontWeight: "bold" },
