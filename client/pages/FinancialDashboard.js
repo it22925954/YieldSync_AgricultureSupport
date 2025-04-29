@@ -150,6 +150,8 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
+    
   },
   chartTitle: {
     fontSize: 20,
