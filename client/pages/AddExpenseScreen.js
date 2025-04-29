@@ -160,7 +160,7 @@ const validateInputs = () => {
       )}
 
       <TouchableOpacity style={styles.button} onPress={handleSaveExpense}>
-        <Text style={styles.buttonText}>{editingId ? "Update Expense" : "Save Expense"}</Text>
+        <Text style={styles.buttonText}>{editingId ? "UPDATE  EXPENSE" : "SAVE  EXPENSE"}</Text>
       </TouchableOpacity>
 
       <FlatList 
