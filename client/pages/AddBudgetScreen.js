@@ -44,6 +44,16 @@ export default function AddBudgetScreen({ navigation }) {
   }, [fetchBudgets]);
 
   const validateFields = () => {
+    if (
+      !budgetName.trim() ||
+      !amount.trim() ||
+      isNaN(amount) ||
+      parseFloat(amount) <= 0 ||
+      !category
+    ) {
+      Alert.alert("Validation Error", "Please fill all fields properly.");
+      return false;
+    }
     if (!budgetName.trim()) {
       Alert.alert("Validation Error", "Income name is required.");
       return false;
