@@ -17,6 +17,10 @@ import Register from "./pages/register";
 // import CommunityChat from "./pages/CommunityChat";
 import PostChatScreen from "./pages/PostChatScreen";
 import PostChatListScreen from "./pages/PostChatListScreen";
+import AddBudgetScreen from "./pages/AddBudgetScreen";
+import FinancialDashboard from "./pages/FinancialDashboard";
+import AddExpenseScreen from "./pages/AddExpenseScreen";  
+
 
 const Stack = createStackNavigator();
 
@@ -24,13 +28,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: "#1b5e20" },
-        headerTintColor: "#ffffff",
-        headerTitleStyle: { fontWeight: "bold" },
-      }}
-      >
+      
+      <StatusBar style="auto" backgroundColor="green" />
+      <Stack.Navigator initialRouteName="FinancialDashboard">
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Forum" component={ForumScreen} />
@@ -47,6 +47,10 @@ export default function App() {
         {/* <Stack.Screen name="CommunityChat" component={CommunityChat} /> */}
         <Stack.Screen name="PostChat" component={PostChatScreen} />
         <Stack.Screen name="ChatList" component={PostChatListScreen} />
+        <Stack.Screen name="FinancialDashboard" component={FinancialDashboard} />
+        <Stack.Screen name="AddBudgetScreen" component={AddBudgetScreen} />
+        <Stack.Screen name="AddExpenseScreen" component={AddExpenseScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
