@@ -136,7 +136,7 @@ const validateInputs = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{editingId ? "Edit Expense" : "Add New Expense"}</Text>
+      <Text style={styles.title}>{editingId ? "Update Expense" : "Add New Expense"}</Text>
 
       <TextInput placeholder="Description" style={styles.input} value={description} onChangeText={setDescription} />
       <TextInput placeholder="Amount" keyboardType="numeric" style={styles.input} value={amount} onChangeText={setAmount} />

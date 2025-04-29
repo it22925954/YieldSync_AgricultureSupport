@@ -144,7 +144,7 @@ export default function AddBudgetScreen({ navigation }) {
       </TouchableOpacity>
       {showDatePicker && <DateTimePicker value={date} mode="date" display="spinner" onChange={onDateChange} />}
       <TouchableOpacity style={styles.saveButton} onPress={handleSaveBudget}>
-        <Text style={styles.saveButtonText}>{editingBudget ? "Update Income" : "Save Income"}</Text>
+        <Text style={styles.saveButtonText}>{editingBudget ? "UPDATE  INCOME" : "SAVE  INCOME"}</Text>
       </TouchableOpacity>
       <FlatList
         data={budgets}
