@@ -102,14 +102,17 @@ export default function AddBudgetScreen({ navigation }) {
           try {
             await axios.delete(`${API_URL}/${id}`);
             fetchBudgets();
+            Alert.alert("Success", "🔴 Deleted Successfully"); // ✅ Show success message here
           } catch (error) {
             console.error("Error deleting income:", error);
+            Alert.alert("Error", "Failed to delete income.");
           }
         },
         style: "destructive",
       },
     ]);
   };
+  
 
   const resetForm = () => {
     setBudgetName("");

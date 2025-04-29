@@ -107,7 +107,7 @@ const validateInputs = () => {
         onPress: () => {
           axios.delete(`${API_URL}/delete/${id}`)
             .then(response => {
-              Alert.alert("Deleted Successfully", response.data.message);
+              Alert.alert("🔴 Deleted Successfully", response.data.message);
               const remainingExpenses = expenses.filter(exp => exp._id !== id);
               setExpenses(remainingExpenses);
               calculateTotalExpenses(remainingExpenses);
