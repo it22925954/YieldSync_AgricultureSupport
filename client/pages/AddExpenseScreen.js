@@ -204,7 +204,7 @@ const styles = {
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 10, textAlign: "center" },
   input: { borderWidth: 1, borderColor: "#ccc", padding: 7, marginVertical: 5, borderRadius: 5, backgroundColor: "#fff" },
   pickerContainer: {  borderWidth: 1,borderColor: '#2e7d32',borderRadius: 10,marginBottom: 5,overflow: 'hidden', backgroundColor: '#fff',marginTop:5},
-  picker: { height: 52, width: "100%" ,fontSize: 10},
+  picker: { height: 54, width: "100%" ,fontSize: 10},
   dateButton: { backgroundColor: "#ddd", padding: 8, borderRadius: 5, alignItems: "center", marginVertical: 5 },
   dateButtonText: { fontSize: 12 },
   button: { backgroundColor: "#2e7d32", padding: 14, borderRadius: 5, alignItems: "center", marginTop: 10 ,marginBottom:10},
