@@ -137,7 +137,7 @@ export default function AddBudgetScreen({ navigation }) {
           <Picker.Item label="Select Category" value="" />
           <Picker.Item label="🌱Food" value="Food" />
           <Picker.Item label="🛠️Labor" value="Labor" />
-          <Picker.Item label="⚙️Entertainment" value="Equipment" />
+          <Picker.Item label="⚙️Equipment" value="Equipment" />
         </Picker>
       </View>
       <TouchableOpacity style={styles.dateButton} onPress={() => setShowDatePicker(true)}>
