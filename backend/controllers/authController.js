@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// ✅ Get User Details
+//  Get User Details
 exports.getUser = async (req, res) => {
     try {
       const userId = req.user.userId; // Assuming user ID comes from auth middleware
@@ -20,7 +20,7 @@ exports.getUser = async (req, res) => {
     }
   };
   
-// ✅ Register User
+//  Register User
 exports.registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -43,7 +43,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-// ✅ Login User
+//  Login User
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;

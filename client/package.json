@@ -18,6 +18,7 @@
     "@react-navigation/stack": "^7.2.2",
     "axios": "^1.8.4",
     "expo": "~52.0.39",
+    "expo-image-picker": "~16.0.6",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-native": "0.76.7",
@@ -28,7 +29,10 @@
     "react-native-screens": "^4.9.2",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-vector-icons": "^10.2.0",
-    "styled-components": "^6.1.16"
+    "styled-components": "^6.1.16",
+    "react-dom": "18.3.1",
+    "react-native-web": "~0.19.13",
+    "@expo/metro-runtime": "~4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
