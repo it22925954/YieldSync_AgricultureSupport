@@ -45,7 +45,7 @@ export default function AddBudgetScreen({ navigation }) {
 
   const validateFields = () => {
     if (!budgetName.trim()) {
-      Alert.alert("Validation Error", "Budget name is required.");
+      Alert.alert("Validation Error", "Income name is required.");
       return false;
     }
     if (!amount.trim() || isNaN(amount) || parseFloat(amount) <= 0) {
@@ -72,16 +72,16 @@ export default function AddBudgetScreen({ navigation }) {
     try {
       if (editingBudget) {
         await axios.put(`${API_URL}/${editingBudget._id}`, newBudget);
-        Alert.alert("Success", "Budget updated successfully!");
+        Alert.alert("Success", "Income updated successfully!");
       } else {
         await axios.post(API_URL, newBudget);
-        Alert.alert("Success", "Budget saved successfully!");
+        Alert.alert("Success", "Income saved successfully!");
       }
       fetchBudgets();
       resetForm();
     } catch (error) {
-      console.error("Error saving budget:", error);
-      Alert.alert("Error", "Failed to save budget.");
+      console.error("Error saving income:", error);
+      Alert.alert("Error", "Failed to save income.");
     }
   };
 
@@ -94,7 +94,7 @@ export default function AddBudgetScreen({ navigation }) {
   };
 
   const handleDeleteBudget = async (id) => {
-    Alert.alert("Delete Budget", "Are you sure you want to delete this budget?", [
+    Alert.alert("Delete Income", "Are you sure you want to delete this Income?", [
       { text: "Cancel", style: "cancel" },
       {
         text: "Delete",
@@ -103,7 +103,7 @@ export default function AddBudgetScreen({ navigation }) {
             await axios.delete(`${API_URL}/${id}`);
             fetchBudgets();
           } catch (error) {
-            console.error("Error deleting budget:", error);
+            console.error("Error deleting income:", error);
           }
         },
         style: "destructive",
@@ -129,8 +129,8 @@ export default function AddBudgetScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{editingBudget ? "Edit Budget" : "Add New Budget"}</Text>
-      <TextInput style={styles.input} placeholder="Budget Name" value={budgetName} onChangeText={setBudgetName} />
+      <Text style={styles.title}>{editingBudget ? "Edit Income" : "Add New Income"}</Text>
+      <TextInput style={styles.input} placeholder="Income Name" value={budgetName} onChangeText={setBudgetName} />
       <TextInput style={styles.input} placeholder="Amount" keyboardType="numeric" value={amount} onChangeText={setAmount} />
       <View style={styles.pickerContainer}>
         <Picker selectedValue={category} onValueChange={(itemValue) => setCategory(itemValue)}>
@@ -144,7 +144,7 @@ export default function AddBudgetScreen({ navigation }) {
       </TouchableOpacity>
       {showDatePicker && <DateTimePicker value={date} mode="date" display="spinner" onChange={onDateChange} />}
       <TouchableOpacity style={styles.saveButton} onPress={handleSaveBudget}>
-        <Text style={styles.saveButtonText}>{editingBudget ? "Update Budget" : "Save Budget"}</Text>
+        <Text style={styles.saveButtonText}>{editingBudget ? "Update Income" : "Save Income"}</Text>
       </TouchableOpacity>
       <FlatList
         data={budgets}
@@ -166,7 +166,7 @@ export default function AddBudgetScreen({ navigation }) {
         )}
       />
       <View style={styles.totalBudgetContainer}>
-        <Text style={styles.totalBudgetText}>Total Budget: Rs. {totalBudget.toFixed(2)}</Text>
+        <Text style={styles.totalBudgetText}>Total Income: Rs. {totalBudget.toFixed(2)}</Text>
       </View>
     </View>
   );
