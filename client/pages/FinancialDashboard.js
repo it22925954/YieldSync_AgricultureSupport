@@ -103,14 +103,12 @@ export default function FinancialDashboard({ navigation }) {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddBudgetScreen')}>
-          <Text style={styles.buttonText}>Budget Planning</Text>
+          <Text style={styles.buttonText}>Income</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddExpenseScreen')}>
           <Text style={styles.buttonText}>Expenses</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('FinancialReports')}>
-          <Text style={styles.buttonText}>Financial Reports</Text>
-        </TouchableOpacity>
+        
       </View>
     </ScrollView>
   );
