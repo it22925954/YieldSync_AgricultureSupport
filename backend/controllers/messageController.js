@@ -1,6 +1,6 @@
 const Message = require("../models/Message");
 
-//  Get All Messages
+// ✅ Get All Messages
 exports.getAllMessages = async (req, res) => {
   try {
     const messages = await Message.find().sort({ timestamp: 1 });
@@ -10,7 +10,7 @@ exports.getAllMessages = async (req, res) => {
   }
 };
 
-//  Send New Message
+// ✅ Send New Message
 exports.sendMessage = async (req, res) => {
   try {
     const { username, message } = req.body;
@@ -22,9 +22,9 @@ exports.sendMessage = async (req, res) => {
   }
 };
 
-//  Save postId inside each message 
+// ✅ Save postId inside each message!
 
-//  Get all messages for a specific Post
+// 🛠 Get all messages for a specific Post
 exports.getMessagesByPostId = async (req, res) => {
   try {
     const { postId } = req.params;
@@ -35,7 +35,7 @@ exports.getMessagesByPostId = async (req, res) => {
   }
 };
 
-//  Send a new message to a specific Post
+// 🛠 Send a new message to a specific Post
 exports.sendMessageToPost = async (req, res) => {
   try {
     const { username, message } = req.body;
