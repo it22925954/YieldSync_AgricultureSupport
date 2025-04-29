@@ -135,7 +135,7 @@ export default function AddBudgetScreen({ navigation }) {
       <View style={styles.pickerContainer}>
         <Picker selectedValue={category} onValueChange={(itemValue) => setCategory(itemValue)}>
           <Picker.Item label="Select Category" value="" />
-          <Picker.Item label="🌱Food" value="Fertilizer" />
+          <Picker.Item label="🌱Fertilizer" value="Fertilizer" />
           <Picker.Item label="🛠️Labor" value="Labor" />
           <Picker.Item label="⚙️Equipment" value="Equipment" />
         </Picker>
