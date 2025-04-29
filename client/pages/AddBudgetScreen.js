@@ -72,10 +72,10 @@ export default function AddBudgetScreen({ navigation }) {
     try {
       if (editingBudget) {
         await axios.put(`${API_URL}/${editingBudget._id}`, newBudget);
-        Alert.alert("Success", "Income updated successfully!");
+        Alert.alert("Updated Successfully", "Update successfully");
       } else {
         await axios.post(API_URL, newBudget);
-        Alert.alert("Success", "✅ Income saved successfully!");
+        Alert.alert("✅ Saved Successfully", "Save Successfully");
       }
       fetchBudgets();
       resetForm();
