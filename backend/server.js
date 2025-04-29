@@ -2,30 +2,34 @@ require('dotenv').config(); // Load .env variables
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const soilWeatherRoutes = require("./routes/soilWeatherRoutes");  // Import soil/weather routes
 
-const app = express();
-app.use(express.json()); // Middleware to parse JSON
-app.use(cors()); // Middleware for handling cross-origin requests
+const authRoutes = require("./routes/authRouts");
+const soilWeatherRoutes = require("./routes/soilWeatherRoutes"); // ✅ Only require here
 
-// Check if MONGO_URI is loaded correctly
-console.log("MongoDB URI:", process.env.MONGO_URI); // Debugging
+const app = express(); // ✅ Declare app before using it
 
-// API Routes
-app.use("/api/soil-weather", soilWeatherRoutes); // Use routes for soil and weather data
-app.use("/api/auth", require("./routes/authRouts"));  // Authentication routes
+app.use(express.json());
+app.use(cors());
 
-// Test route
+// Debug Mongo URI
+console.log("MongoDB URI:", process.env.MONGO_URI);
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/soil-weather", soilWeatherRoutes); // ✅ Consistent route prefix
+
+// Test Route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
 });
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 }).then(() => console.log('✅ MongoDB Connected'))
   .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
