@@ -78,7 +78,7 @@ export default function FinancialDashboard({ navigation }) {
 
       <View style={styles.summaryContainer}>
         <View style={styles.chartContainer}>
-          <Text style={styles.chartTitle}>📊 Expense Breakdown</Text>
+          <Text style={styles.chartTitle}>📊 Expense Overview</Text>
           {chartData.length > 0 ? (
             <PieChart
               data={chartData}
