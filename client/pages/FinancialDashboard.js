@@ -106,7 +106,7 @@ export default function FinancialDashboard({ navigation }) {
           <Text style={styles.buttonText}>Budget Planning</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddExpenseScreen')}>
-          <Text style={styles.buttonText}>Add New Expense</Text>
+          <Text style={styles.buttonText}>Expenses</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('FinancialReports')}>
           <Text style={styles.buttonText}>Financial Reports</Text>
