@@ -51,7 +51,7 @@ export default function FinancialDashboard({ navigation }) {
   );
 
   // Build chart data for Food, Utilities, Entertainment
-  const categories = ['Food', 'Utilities', 'Entertainment'];
+  const categories = ['Food', 'Labor', 'Entertainment'];
   const colors = ['#1E7D32', '#FFEB3B', '#FF7043'];
   const chartData = categories.map((cat, idx) => {
     const total = expenses
