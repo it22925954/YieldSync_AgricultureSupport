@@ -5,19 +5,18 @@ const soilWeatherSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  weather: {
-    type: String, // Sunny, Rainy, etc.
+  climate_zone: {
+    type: String, // e.g., Dry Zone, Wet Zone, Intermediate Zone
     required: true,
   },
-  soilType: {
-    type: String, // Loamy, Clay, Sandy, etc.
+  soil_types: {
+    type: [String], // e.g., ["Loamy", "Clay"]
     required: true,
   },
-  plants: [
-    {
-      type: String, // Plant names related to this soil type & weather
-    },
-  ],
+  recommended_crops: {
+    type: [String], // e.g., ["Paddy", "Maize"]
+    required: true,
+  },
 });
 
 const SoilWeather = mongoose.model("SoilWeather", soilWeatherSchema);
