@@ -1,60 +1,90 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import * as Location from 'expo-location';
+import axios from 'axios';
 
-export default function LocationMap() {
-  const [userLocation, setUserLocation] = useState(null);
+export default function LocationMap({ route }) {
+  const { latitude, longitude, name } = route.params;
+  const [address, setAddress] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchAddress = async () => {
+    try {
+      const apiKey = 'f16a841216624e8a8a1d1d8f8f70022d'; // 🔑 Replace with your API key
+      const response = await axios.get(
+        `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`
+      );
+      if (response.data && response.data.results.length > 0) {
+        setAddress(response.data.results[0].formatted);
+      } else {
+        setAddress('Address not found');
+      }
+    } catch (err) {
+      console.error('Reverse geocoding failed:', err);
+      setAddress('Failed to fetch address');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const getUserLocation = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission Denied', 'Permission to access location was denied');
-        return;
-      }
-
-      let loc = await Location.getCurrentPositionAsync({});
-      setUserLocation(loc);
-    };
-
-    getUserLocation();
+    fetchAddress();
   }, []);
 
-  if (!userLocation) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#4CAF50" />
-        <Text style={styles.loadingText}>Loading map...</Text>
-      </View>
-    );
-  }
-
   return (
-    <MapView
-      style={styles.map}
-      initialRegion={{
-        latitude: userLocation.coords.latitude,
-        longitude: userLocation.coords.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      }}
-    >
-      {/* Only show user's current location marker */}
-      <Marker
-        coordinate={{
-          latitude: userLocation.coords.latitude,
-          longitude: userLocation.coords.longitude,
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
         }}
-        title="Your Location"
-        pinColor="#4CAF50"
-      />
-    </MapView>
+      >
+        <Marker
+          coordinate={{
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+          }}
+          title={name}
+          description={address || 'Loading address...'}
+        />
+      </MapView>
+      <View style={styles.addressContainer}>
+        {loading ? (
+          <ActivityIndicator size="small" color="#4CAF50" />
+        ) : (
+          <Text style={styles.addressText}>{address}</Text>
+        )}
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F1F8E9' },
-  loadingText: { marginTop: 10, fontSize: 16, color: '#666' },
-  map: { flex: 1 },
-});  
+  container: {
+    flex: 1
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject
+  },
+  addressContainer: {
+    position: 'absolute',
+    bottom: 20,
+    backgroundColor: 'white',
+    marginHorizontal: 20,
+    padding: 10,
+    borderRadius: 10,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  addressText: {
+    fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+  }
+});

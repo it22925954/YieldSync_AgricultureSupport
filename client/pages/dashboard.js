@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from "react";
-import { View, Text, StyleSheet, FlatList, Button, Alert, TouchableOpacity } from "react-native";
-import { useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {View,Text,StyleSheet,FlatList,Button,Alert,TouchableOpacity,TextInput,} from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 export default function Dashboard({ navigation }) {
   const [distributors, setDistributors] = useState([]);
+  const [filteredDistributors, setFilteredDistributors] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchDistributors = async () => {
     try {
@@ -15,6 +17,7 @@ export default function Dashboard({ navigation }) {
       const data = await response.json();
       console.log("Fetched Distributors:", data);
       setDistributors(data);
+      setFilteredDistributors(data);
     } catch (error) {
       console.error("Network request failed:", error);
       Alert.alert("Error", "Failed to load distributors.");
@@ -24,25 +27,55 @@ export default function Dashboard({ navigation }) {
   useFocusEffect(
     useCallback(() => {
       fetchDistributors();
-    }, []) 
+    }, [])
   );
 
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`http://192.168.8.158:5000/api/distributors/delete/${id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        Alert.alert("Success", "Distributor deleted successfully!");
-        setDistributors(distributors.filter((item) => item._id !== id));
-      } else {
-        Alert.alert("Error", "Failed to delete distributor");
-      }
-    } catch (error) {
-      console.error(error);
-      Alert.alert("Error", "Failed to delete distributor");
-    }
+  const handleSearch = (text) => {
+    setSearchTerm(text);
+    const filtered = distributors.filter((distributor) =>
+      distributor.name.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredDistributors(filtered);
   };
+
+  const handleDelete = (id) => {
+    Alert.alert(
+      "Confirm Deletion",
+      "Are you sure you want to delete this distributor?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            try {
+              const response = await fetch(
+                `http://192.168.8.158:5000/api/distributors/delete/${id}`,
+                {
+                  method: "DELETE",
+                }
+              );
+              if (response.ok) {
+                Alert.alert("Success", "Distributor deleted successfully!");
+                const updatedList = distributors.filter((item) => item._id !== id);
+                setDistributors(updatedList);
+                setFilteredDistributors(updatedList);
+              } else {
+                Alert.alert("Error", "Failed to delete distributor");
+              }
+            } catch (error) {
+              console.error(error);
+              Alert.alert("Error", "Failed to delete distributor");
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -60,10 +93,17 @@ export default function Dashboard({ navigation }) {
         />
       </View>
 
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search by distributor name..."
+        value={searchTerm}
+        onChangeText={handleSearch}
+      />
+
       <Text style={styles.title}>Distributor List</Text>
 
       <FlatList
-        data={distributors}
+        data={filteredDistributors}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <View style={styles.item}>
@@ -91,19 +131,29 @@ export default function Dashboard({ navigation }) {
               <Icon name="store" size={24} color="#333" />
               <Text style={styles.itemText}>Available Stock: {item.stock}</Text>
             </View>
-           
+
             <View style={styles.buttonRow}>
-              <TouchableOpacity style={styles.updateButton} onPress={() => navigation.navigate("Update Distributor", { distributorId: item._id })}>
+              <TouchableOpacity
+                style={styles.updateButton}
+                onPress={() =>
+                  navigation.navigate("Update Distributor", { distributorId: item._id })
+                }
+              >
                 <Text style={styles.buttonText}>Update</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(item._id)}>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => handleDelete(item._id)}
+              >
                 <Text style={styles.buttonText}>Delete</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                 style={styles.viewProfileButton}
-                 onPress={() => navigation.navigate("DistributorProfile", { distributorId: item._id })}
->
-                 <Text style={styles.buttonText}>View Profile</Text>
+                style={styles.viewProfileButton}
+                onPress={() =>
+                  navigation.navigate("DistributorProfile", { distributorId: item._id })
+                }
+              >
+                <Text style={styles.buttonText}>View Profile</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -115,18 +165,61 @@ export default function Dashboard({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, backgroundColor: "#e8f5e9" },
-  welcomeSection: { backgroundColor: "#2e7d32", padding: 24, borderRadius: 16, marginBottom: 24, alignItems: "center" },
+  welcomeSection: {
+    backgroundColor: "#2e7d32",
+    padding: 24,
+    borderRadius: 16,
+    marginBottom: 24,
+    alignItems: "center",
+  },
   welcomeText: { color: "white", fontSize: 24, fontWeight: "bold" },
   welcomeSubText: { color: "white", fontSize: 20, marginTop: 8, fontWeight: "bold" },
   subText: { color: "white", marginTop: 8 },
   buttonContainer: { marginBottom: 16 },
+  searchInput: {
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 16,
+    borderColor: "#ccc",
+    borderWidth: 1,
+  },
   title: { fontSize: 24, fontWeight: "bold", marginBottom: 16 },
-  item: { backgroundColor: "#fff", padding: 16, marginVertical: 8, borderRadius: 8, elevation: 4 },
+  item: {
+    backgroundColor: "#fff",
+    padding: 16,
+    marginVertical: 8,
+    borderRadius: 8,
+    elevation: 4,
+  },
   itemText: { fontSize: 16, color: "#333" },
-  buttonRow: { flexDirection: "row", justifyContent: "space-between", marginTop: 10 },
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+    gap: 5,
+  },
   row: { flexDirection: "row", alignItems: "center", marginBottom: 8 },
-  updateButton: { backgroundColor: "#f5ad42", padding: 10, borderRadius: 8, flex: 1, alignItems: "center", marginRight: 5 },
-  deleteButton: { backgroundColor: "#d32f2f", padding: 10, borderRadius: 8, flex: 1, alignItems: "center", marginLeft: 5 },
-  viewProfileButton: { backgroundColor: "#2e7d32", padding: 10, borderRadius: 8, flex: 1, alignItems: "center", marginLeft: 5 },
+  updateButton: {
+    backgroundColor: "#f5ad42",
+    padding: 10,
+    borderRadius: 8,
+    flex: 1,
+    alignItems: "center",
+  },
+  deleteButton: {
+    backgroundColor: "#d32f2f",
+    padding: 10,
+    borderRadius: 8,
+    flex: 1,
+    alignItems: "center",
+  },
+  viewProfileButton: {
+    backgroundColor: "#2e7d32",
+    padding: 10,
+    borderRadius: 8,
+    flex: 1,
+    alignItems: "center",
+  },
   buttonText: { color: "white", fontSize: 16, fontWeight: "bold" },
 });

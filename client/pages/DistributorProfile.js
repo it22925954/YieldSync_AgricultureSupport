@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 export default function DistributorProfile({ route }) {
-  const { distributorId } = route.params;  // Access the distributorId from the route params
-  const [distributor, setDistributor] = useState(null);  // State for storing distributor data
+  const { distributorId } = route.params;
+  const [distributor, setDistributor] = useState(null);
   const navigation = useNavigation();
 
-  // Fetch distributor details from API
   useEffect(() => {
     const fetchDistributor = async () => {
       try {
@@ -27,7 +27,39 @@ export default function DistributorProfile({ route }) {
     fetchDistributor();
   }, [distributorId]);
 
-  // Show loading indicator if distributor data is not yet fetched
+  // Geocoding function using OpenCage API
+  const fetchCoordinates = async (locationName) => {
+    try {
+      const apiKey = 'f16a841216624e8a8a1d1d8f8f70022d'; // 🔑 Replace with your actual OpenCage API key
+      const response = await axios.get(
+        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationName)}&key=${apiKey}`
+      );
+
+      if (response.data && response.data.results.length > 0) {
+        const { lat, lng } = response.data.results[0].geometry;
+        return { latitude: lat, longitude: lng };
+      } else {
+        throw new Error('Location not found');
+      }
+    } catch (err) {
+      console.error('Geocoding error:', err);
+      return null;
+    }
+  };
+
+  const handleViewLocation = async () => {
+    const coords = await fetchCoordinates(distributor.location);
+    if (coords) {
+      navigation.navigate('LocationMap', {
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+        name: distributor.name,
+      });
+    } else {
+      Alert.alert('Error', 'Failed to find location on map.');
+    }
+  };
+
   if (!distributor) {
     return (
       <View style={styles.loadingContainer}>
@@ -37,21 +69,11 @@ export default function DistributorProfile({ route }) {
     );
   }
 
-  // Navigate to the map page when "View Location" is pressed
-  const handleViewLocation = () => {
-    navigation.navigate('LocationMap', { 
-      latitude: distributor.latitude, 
-      longitude: distributor.longitude, 
-      name: distributor.name 
-    });
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.title}>{distributor.name}</Text>
 
-        {/* Distributor info */}
         <View style={styles.infoRow}>
           <Icon name="location-on" size={24} color="#4CAF50" />
           <Text style={styles.infoText}>Location: {distributor.location}</Text>
@@ -77,11 +99,7 @@ export default function DistributorProfile({ route }) {
           <Text style={styles.infoText}>Available Stock: {distributor.stock}</Text>
         </View>
 
-        {/* Button to view location on map */}
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={handleViewLocation}
-        >
+        <TouchableOpacity style={styles.button} onPress={handleViewLocation}>
           <Text style={styles.buttonText}>View Location</Text>
         </TouchableOpacity>
       </View>
@@ -90,12 +108,12 @@ export default function DistributorProfile({ route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 20, 
-    backgroundColor: '#F1F8E9', 
-    justifyContent: 'center', 
-    alignItems: 'center' 
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#F1F8E9',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   card: {
     backgroundColor: '#fff',
@@ -108,22 +126,22 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowRadius: 5,
   },
-  title: { 
-    fontSize: 28, 
-    fontWeight: 'bold', 
-    color: '#2e7d32', 
-    marginBottom: 20, 
-    textAlign: 'center' 
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#2e7d32',
+    marginBottom: 20,
+    textAlign: 'center',
   },
-  infoRow: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    marginVertical: 8 
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 8,
   },
-  infoText: { 
-    fontSize: 18, 
-    color: '#2e7d32', 
-    marginLeft: 10 
+  infoText: {
+    fontSize: 18,
+    color: '#2e7d32',
+    marginLeft: 10,
   },
   button: {
     marginTop: 30,
@@ -137,15 +155,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  loadingContainer: { 
-    flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    backgroundColor: '#F1F8E9' 
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F1F8E9',
   },
   loadingText: {
     marginTop: 10,
     fontSize: 16,
     color: '#666',
-  }
+  },
 });
