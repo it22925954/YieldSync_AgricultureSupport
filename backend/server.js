@@ -5,8 +5,6 @@ const cors = require('cors');
 const authRoutes = require("./routes/authRouts");
 const budgetRoutes = require('./routes/budgetRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
-
-const authRoutes = require("./routes/authRouts");
 const soilWeatherRoutes = require("./routes/soilWeatherRoutes"); // ✅ Only require here
 
 const app = express(); // ✅ Declare app before using it
