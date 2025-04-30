@@ -84,7 +84,7 @@ export default function Register({ navigation }) {
   );
 }
 
-// ✅ Styled Components
+//  Styled Components
 const StyledContainer = styled.View`
   flex: 1;
   justify-content: center;

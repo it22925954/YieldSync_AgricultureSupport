@@ -6,6 +6,7 @@ const DetailsScreen = ({ route }) => {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
+    
     // Fetch the image URL based on the imageId
     switch (imageId) {
       case 1:
