@@ -1,12 +1,3 @@
-# YieldSync_App
+# 🌾 Yield Sync – Smart Agriculture Support App
 
-
-clone the github repo and open it using vscode
-
-pull from master
-
-create branch and give your name
-
-swith from master to your branch and start developing
-
-Accept the mongodb instance request and connect mongodb
+We built this mobile application to support smart agriculture by helping farmers calculate organic fertilizer C:N ratios, check soil and weather conditions by area, connect with fertilizer distributors, manage finances, and engage in a farming community, promoting sustainable practices through expert advice, crop recommendations, and efficient farm management tools.
