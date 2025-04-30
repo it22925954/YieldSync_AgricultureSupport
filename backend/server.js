@@ -3,13 +3,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const distributorRoutes = require('./routes/distributorRoutes');
-
 // Middleware to parse JSON and handle CORS
 const authRoutes = require("./routes/authRouts");
 const budgetRoutes = require('./routes/budgetRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
-
-const authRoutes = require("./routes/authRouts");
 const soilWeatherRoutes = require("./routes/soilWeatherRoutes"); // ✅ Only require here
 
 const app = express(); // ✅ Declare app before using it
