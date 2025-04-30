@@ -1,16 +1,14 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const distributorRoutes = require('./routes/distributorRoutes');
-// Middleware to parse JSON and handle CORS
+require('dotenv').config(); // Load .env variables
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const authRoutes = require("./routes/authRouts");
-const budgetRoutes = require('./routes/budgetRoutes');
-const expenseRoutes = require('./routes/expenseRoutes');
-const soilWeatherRoutes = require("./routes/soilWeatherRoutes"); // ✅ Only require here
+const postRoutes = require("./routes/postRoutes"); // Import post routes
+const noticeRoutes = require("./routes/noticeRoutes");
+const messageRoutes = require("./routes/messageRoute");
+const distributorRoutes = require('./routes/distributorRoutes');
 
 const app = express(); // ✅ Declare app before using it
-
 app.use(express.json());
 app.use(cors({
   origin: '*', // Allow all origins (adjust for security as needed)
@@ -18,36 +16,35 @@ app.use(cors({
 }));
 
 
+app.use(
+  cors({
+    origin: "*", // Allow requests from any origin
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allow these HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+  })
+);
 
-// Routes for Distributor CRUD
+// Check if MONGO_URI is loaded correctly
+console.log("MongoDB URI:", process.env.MONGO_URI); // Debugging
+
+app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/notices", noticeRoutes);
+app.use("/api/messages", messageRoutes);
 app.use("/api/distributors", distributorRoutes);
 
 
-// Start the server
-// Debug Mongo URI
-console.log("MongoDB URI:", process.env.MONGO_URI);
 
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/soil-weather", soilWeatherRoutes); // ✅ Consistent route prefix
-
-// Test Route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
 });
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 }).then(() => console.log('✅ MongoDB Connected'))
   .catch(err => console.error('❌ MongoDB Connection Error:', err));
-
-// Start server
-  // Routes
-app.use('/api/budget', budgetRoutes);
-app.use('/api/expenses', expenseRoutes);
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

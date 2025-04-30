@@ -45,7 +45,7 @@ const Header = () => {
     { id: "1", title: "Home", icon: "home", screen: "HomeScreen" },
     { id: "2", title: "Post", icon: "post", screen: "Forum" }, 
     { id: "3", title: "Expenses", icon: "cash-multiple", screen: "ExpensesScreen" },
-    { id: "4", title: "Distributors", icon: "truck", screen: "DistributorsScreen" },
+    { id: "4", title: "Distributors", icon: "truck", screen: "Dashboard" },
     { id: "5", title: "Calculator", icon: "calculator", screen: "CalculatorScreen" }
   ];
 
