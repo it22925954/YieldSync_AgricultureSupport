@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+// import { API_URLS } from "../config";
 import {
   View,
   Text,
+  Alert,
   Image,
   TouchableOpacity,
   FlatList,
@@ -10,7 +12,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
-const API_URL = "http://192.168.132.36:5000/api/posts"; // Your API
+const API_URL = `http:/192.168.157.36:5000/api/posts`; // Your API
 
 export default function ForumScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
@@ -25,6 +27,23 @@ export default function ForumScreen({ navigation }) {
       })
       .catch((error) => console.error("Error fetching posts:", error));
   }, []);
+
+  const deletePost = (id) => {
+    Alert.alert("Delete Post", "Are you sure you want to delete this post?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: () => {
+          fetch(`${API_URL}/${id}`, { method: "DELETE" })
+            .then(() => {
+              setPosts(posts.filter((post) => post._id !== id));
+            })
+            .catch((error) => console.error("Error deleting post:", error));
+        },
+      },
+    ]);
+  };
 
   if (loading) return <ActivityIndicator size="large" color="#2d6a4f" />;
 
@@ -48,11 +67,20 @@ export default function ForumScreen({ navigation }) {
               <View style={styles.postContent}>
                 <Text style={styles.postTitle}>{item.title}</Text>
                 <View style={styles.postStats}>
-                  <Text>❤️ {item.likes}</Text>
-                  <Text>💬 {item.comments}</Text>
+                  {/* <Text>❤️ {item.likes}</Text>
+                  <Text>💬 {item.comments}</Text> */}
                 </View>
               </View>
             </TouchableOpacity>
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate("EditPost", { post: item, setPosts })}>
+                <Icon name="edit" size={18} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.deleteButton} onPress={() => deletePost(item._id)}>
+                <Icon name="trash" size={18} color="white" />
+              </TouchableOpacity>
+            </View>
 
             {/* ✅ Chat Icon */}
             <TouchableOpacity
@@ -66,7 +94,7 @@ export default function ForumScreen({ navigation }) {
       />
 
       {/* View Notices Button */}
-      <TouchableOpacity style={styles.navigateButton} onPress={() => navigation.navigate("AddNotice")}>
+      <TouchableOpacity style={styles.navigateButton} onPress={() => navigation.navigate("Alert")}>
         <Text style={styles.navigateButtonText}>🔔 View Important Notices</Text>
       </TouchableOpacity>
     </View>
@@ -83,6 +111,9 @@ const styles = StyleSheet.create({
   postContent: { padding: 10 },
   postTitle: { fontWeight: "bold", fontSize: 16, color: "#2d6a4f" },
   postStats: { flexDirection: "row", justifyContent: "space-between", marginTop: 5, color: "#555" },
+  buttonContainer: { flexDirection: "row", justifyContent: "space-between", padding: 10 },
+  editButton: { backgroundColor: "#388e3c", padding: 10, borderRadius: 50 },
+  deleteButton: { backgroundColor: "#d32f2f", padding: 10, borderRadius: 50 },
   
   // Navigate Notices
   navigateButton: { backgroundColor: "#2e7d32", padding: 15, borderRadius: 30, alignItems: "center", marginTop: 20 },

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-const API_URL = "http://192.168.132.36:5000/api/posts";
+const API_URL = "http://192.168.157.36:5000/api/posts";
 
 export default function NewPostScreen({ route, navigation }) {
   const { setPosts } = route.params;

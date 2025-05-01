@@ -2,7 +2,7 @@ require('dotenv').config(); // Load .env variables
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const authRoutes = require("./routes/authRouts");
+const authRoutes = require("./routes/authRoutes");
 const postRoutes = require("./routes/postRoutes"); // Import post routes
 const noticeRoutes = require("./routes/noticeRoutes");
 const messageRoutes = require("./routes/messageRoute");
@@ -12,24 +12,25 @@ const app = express(); // ✅ Declare app before using it
 app.use(express.json());
 app.use(cors({
   origin: '*', // Allow all origins (adjust for security as needed)
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
 }));
 
 
-app.use(
-  cors({
-    origin: "*", // Allow requests from any origin
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allow these HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
-  })
-);
+// app.use(
+//   cors({
+//     origin: "*", // Allow requests from any origin
+//     methods: ["GET", "POST", "PUT", "DELETE"], // Allow these HTTP methods
+//     allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+//   })
+// );
 
 // Check if MONGO_URI is loaded correctly
 console.log("MongoDB URI:", process.env.MONGO_URI); // Debugging
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/notices", noticeRoutes);
+app.use("/api/notices", noticeRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/distributors", distributorRoutes);
 
