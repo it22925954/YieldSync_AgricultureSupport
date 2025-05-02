@@ -6,6 +6,8 @@ const authRoutes = require("./routes/authRouts");
 const budgetRoutes = require('./routes/budgetRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 const soilWeatherRoutes = require("./routes/soilWeatherRoutes"); // ✅ Only require here
+const fertilizerRoutes = require("./routes/fertilizerRoutes");
+
 
 const app = express(); // ✅ Declare app before using it
 
@@ -18,6 +20,8 @@ console.log("MongoDB URI:", process.env.MONGO_URI);
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/soil-weather", soilWeatherRoutes); // ✅ Consistent route prefix
+
+app.use("/api/fertilizer", fertilizerRoutes);// ✅ Consistent route prefix
 
 // Test Route
 app.get('/api/test', (req, res) => {
